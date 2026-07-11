@@ -1,0 +1,801 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Servicios — Geosierra</title>
+    <meta
+      name="description"
+      content="Topografía planimétrica, vuelos fotogramétricos, estudios hidrológicos y más. Conoce todos los servicios de Geosierra."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --green-dark: #0a1f10;
+        --green-mid: #0f2d1a;
+        --green-brand: #3bb50e;
+        --green-light: #4ade80;
+        --green-pale: #eaf3de;
+        --text-primary: #1a1a1a;
+        --text-secondary: #555;
+        --bg: #f7f8f6;
+        --bg-card: #fff;
+        --border: rgba(0, 0, 0, 0.08);
+        --radius: 10px;
+        --radius-lg: 16px;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Syne", sans-serif;
+        background: var(--bg);
+        color: var(--text-primary);
+        line-height: 1.6;
+      }
+
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: var(--green-dark);
+        padding: 0 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 60px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+      }
+      .nav-logo {
+        width: 34px;
+        height: 34px;
+        background: var(--green-brand);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .nav-name {
+        color: #fff;
+        font-size: 1.05rem;
+        font-weight: 700;
+      }
+      .nav-name span {
+        color: var(--green-light);
+      }
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+      }
+      .nav-links a {
+        color: rgba(255, 255, 255, 0.65);
+        text-decoration: none;
+        font-size: 0.875rem;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: var(--green-light);
+      }
+      .nav-cta {
+        background: var(--green-brand) !important;
+        color: #fff !important;
+        padding: 8px 18px;
+        border-radius: 8px;
+        font-size: 0.8rem !important;
+        font-weight: 600 !important;
+      }
+
+      .page-hero {
+        background: var(--green-dark);
+        padding: 3.5rem 2.5rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .page-hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          circle at 80% 50%,
+          rgba(59, 181, 14, 0.08) 0%,
+          transparent 60%
+        );
+        pointer-events: none;
+      }
+      .page-hero-inner {
+        max-width: 1000px;
+        margin: 0 auto;
+        position: relative;
+      }
+      .breadcrumb {
+        font-family: "DM Mono", monospace;
+        font-size: 0.72rem;
+        color: var(--green-light);
+        margin-bottom: 1rem;
+        opacity: 0.8;
+      }
+      .page-hero h1 {
+        color: #fff;
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+      .page-hero p {
+        color: rgba(255, 255, 255, 0.55);
+        font-size: 1rem;
+      }
+
+      .section {
+        padding: 4rem 2.5rem;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+      .section-tag {
+        font-family: "DM Mono", monospace;
+        font-size: 0.7rem;
+        color: var(--green-brand);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 0.5rem;
+      }
+      .section-title {
+        font-size: 1.6rem;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 2rem;
+      }
+
+      .svc-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .svc-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+        align-items: stretch;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        background: #fff;
+        margin-bottom: 20px;
+        overflow: hidden;
+        transition: box-shadow 0.2s;
+      }
+      .svc-row:hover {
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.07);
+      }
+      .svc-row.reverse {
+        direction: rtl;
+      }
+      .svc-row.reverse > * {
+        direction: ltr;
+      }
+      .svc-img {
+        min-height: 220px;
+        background-size: cover;
+        background-position: center;
+        background-color: var(--green-pale);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .svc-img-placeholder {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        color: var(--green-brand);
+        opacity: 0.5;
+      }
+      .svc-img-placeholder span {
+        font-size: 0.7rem;
+        font-family: "DM Mono", monospace;
+      }
+      .svc-content {
+        padding: 2rem 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .svc-num {
+        font-family: "DM Mono", monospace;
+        font-size: 0.7rem;
+        color: var(--green-brand);
+        opacity: 0.6;
+        margin-bottom: 0.5rem;
+      }
+      .svc-content h2 {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+      }
+      .svc-content p {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        line-height: 1.7;
+        margin-bottom: 1rem;
+      }
+      .svc-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .tag {
+        background: var(--green-pale);
+        color: #2a7a09;
+        font-size: 0.72rem;
+        padding: 4px 10px;
+        border-radius: 100px;
+        font-family: "DM Mono", monospace;
+      }
+
+      .cta-band {
+        background: linear-gradient(135deg, #1a3d1f 0%, #0a1f10 100%);
+        border-top: 1px solid rgba(74, 222, 128, 0.15);
+        padding: 3.5rem 2.5rem;
+        text-align: center;
+      }
+      .cta-band h2 {
+        color: #fff;
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+      }
+      .cta-band p {
+        color: rgba(255, 255, 255, 0.55);
+        font-size: 1rem;
+        margin-bottom: 2rem;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 13px 26px;
+        border-radius: var(--radius);
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+        transition: all 0.2s;
+        font-family: "Syne", sans-serif;
+      }
+      .btn-whatsapp {
+        background: #25d366;
+        color: #fff;
+      }
+      .btn-whatsapp:hover {
+        background: #1da851;
+        transform: translateY(-1px);
+      }
+      .btn-outline {
+        background: transparent;
+        color: rgba(255, 255, 255, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+      }
+      .btn-outline:hover {
+        border-color: var(--green-light);
+        color: var(--green-light);
+      }
+      .cta-btns {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      footer {
+        background: var(--green-dark);
+        padding: 2rem 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      .footer-left {
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 0.8rem;
+        font-family: "DM Mono", monospace;
+      }
+      .footer-right a {
+        color: rgba(255, 255, 255, 0.35);
+        text-decoration: none;
+        font-size: 0.8rem;
+        margin-left: 1.5rem;
+      }
+      .footer-right a:hover {
+        color: var(--green-light);
+      }
+
+      @media (max-width: 680px) {
+        .nav-links {
+          display: none;
+        }
+        .nav {
+          padding: 0 1.25rem;
+        }
+        .svc-row {
+          grid-template-columns: 1fr;
+        }
+        .svc-row.reverse {
+          direction: ltr;
+        }
+        .svc-img {
+          min-height: 160px;
+        }
+        .page-hero {
+          padding: 2.5rem 1.25rem;
+        }
+        .section {
+          padding: 2.5rem 1.25rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">
+        <div class="nav-logo">
+          <svg viewBox="0 0 20 20" fill="none">
+            <polygon
+              points="10,3 17,15 3,15"
+              fill="none"
+              stroke="white"
+              stroke-width="1.5"
+            />
+            <line
+              x1="10"
+              y1="9"
+              x2="10"
+              y2="15"
+              stroke="#4ade80"
+              stroke-width="1.5"
+            />
+            <circle cx="10" cy="9" r="2" fill="#4ade80" />
+          </svg>
+        </div>
+        <span class="nav-name">Geo<span>sierra</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Inicio</a>
+        <a href="servicios.html" class="active">Servicios</a>
+        <a href="nosotros.html">Nosotros</a>
+        <a href="contacto.html" class="nav-cta">Cotizar</a>
+      </div>
+    </nav>
+
+    <div class="page-hero">
+      <div class="page-hero-inner">
+        <div class="breadcrumb">Geosierra / Servicios</div>
+        <h1>Nuestros servicios</h1>
+        <p>Soluciones geoespaciales precisas para cada tipo de proyecto.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-tag">Catálogo completo</div>
+      <div class="section-title">Todo lo que ofrecemos</div>
+
+      <div class="svc-list">
+        <div class="svc-row">
+          <div
+            class="svc-img"
+            style="
+              background-image: url(&quot;https://www.levantamientostopograficos.com.mx/servicios_de_topografia_en_toluca/levantamientos_topograficos_en_toluca.jpg&quot;);
+            "
+          ></div>
+          <div class="svc-content">
+            <div class="svc-num">01 — Planimetría</div>
+            <h2>Topografía planimétrica</h2>
+            <p>
+              Deslinde de predios, apeo y demarcación de terrenos con exactitud
+              legal. Rectificación y ajuste de medidas existentes para
+              garantizar precisión en proyectos.
+            </p>
+            <div class="svc-tags">
+              <span class="tag">Deslindes</span><span class="tag">Apeos</span
+              ><span class="tag">Rectificación</span
+              ><span class="tag">Agrimensura</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="svc-row reverse">
+          <div
+            class="svc-img"
+            style="
+              background-image: url(&quot;GEOSIERRA/curvas.jpg&quot;);
+              background-size: contain;
+              background-repeat: no-repeat;
+              background-color: #f0f5ee;
+            "
+          ></div>
+          <div class="svc-content">
+            <div class="svc-num">02 — Altimetría</div>
+            <h2>Curvas de nivel</h2>
+            <p>Obtención de razantes de terreno natural y de proyecto</p>
+            <div class="svc-tags">
+              <span class="tag">MDE</span><span class="tag">TIN</span
+              ><span class="tag">Ortofoto</span
+              ><span class="tag">Nube de puntos</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="svc-row">
+          <div
+            class="svc-img"
+            style="background-image: url(GEOSIERRA/drone.jpg)"
+          ></div>
+          <div class="svc-content">
+            <div class="svc-num">03 — Vuelos Fotogramétricos</div>
+            <h2>Vuelos de alta precisión para la obtención de:</h2>
+            <p>
+              Ortofoto corregida con precisión centimétrica: ±0.05–0.10 cm
+              horizontal (planimetría) y ±0.10–0.20 cm vertical (altimetría)
+              Nube densa de puntos para análisis geoespacial Modelos digitales
+              de elevación tipo terreno y superficie (MDT/MDS) Curvas de nivel
+              2D y 3D, TIN, Cálculo de volúmenes (volumetría) Análisis
+              topográfico para fraccionamientos, grandes desarrollos
+              habitacionales, permisos de construcción municipal, estatal y
+              federal
+            </p>
+            <div class="svc-tags">
+              <span class="tag">Drones industriales</span
+              ><span class="tag">Modelado 3D</span
+              ><span class="tag">Alta resolución</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="svc-row reverse">
+          <div
+            class="svc-img"
+            style="
+              background-image: url(&quot;https://pcti.mx/wp-content/uploads/2020/12/127Figura1-791x1024.jpg&quot;);
+            "
+          ></div>
+          <div class="svc-content">
+            <div class="svc-num">04 — Hidrología</div>
+            <h2>Servicios de ingeniería hidráulica</h2>
+            <p>
+              Estudios hidrológicos e hidráulicos, análisis de riesgo de
+              inundación y delimitación de zonas federales en ríos y arroyos
+              conforme a normativa vigente.
+            </p>
+            <div class="svc-tags">
+              <span class="tag">Zonas federales</span
+              ><span class="tag">Riesgo de inundación</span
+              ><span class="tag">Análisis de lluvias</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="svc-row">
+          <div
+            class="svc-img"
+            style="background-image: url(&quot;GEOSIERRA/gnss.png&quot;)"
+          >
+            <div class="svc-img-placeholder" style="display: none">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <circle
+                  cx="24"
+                  cy="24"
+                  r="16"
+                  stroke="#3bb50e"
+                  stroke-width="2"
+                />
+                <circle
+                  cx="24"
+                  cy="24"
+                  r="6"
+                  stroke="#3bb50e"
+                  stroke-width="2"
+                />
+                <line
+                  x1="24"
+                  y1="8"
+                  x2="24"
+                  y2="18"
+                  stroke="#3bb50e"
+                  stroke-width="2"
+                />
+                <line
+                  x1="8"
+                  y1="24"
+                  x2="18"
+                  y2="24"
+                  stroke="#3bb50e"
+                  stroke-width="1.5"
+                  opacity="0.5"
+                />
+                <line
+                  x1="30"
+                  y1="24"
+                  x2="40"
+                  y2="24"
+                  stroke="#3bb50e"
+                  stroke-width="1.5"
+                  opacity="0.5"
+                />
+              </svg>
+              <span>GNSS RTK</span>
+            </div>
+          </div>
+          <div class="svc-content">
+            <div class="svc-num">05 — Geodesia</div>
+            <h2>Georreferenciación GNSS RTK</h2>
+            <p>
+              Levantamientos con precisión centimétrica utilizando receptores
+              GNSS de última generación. Indispensable para proyectos que
+              requieren coordenadas absolutas confiables.
+            </p>
+            <div class="svc-tags">
+              <span class="tag">Precisión ±2cm</span
+              ><span class="tag">Tiempo real</span
+              ><span class="tag">Coordenadas absolutas</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="svc-row reverse">
+          <div
+            class="svc-img"
+            style="background-image: url(GEOSIERRA/replanteo.jpg)"
+          ></div>
+          <div class="svc-content">
+            <div class="svc-num">06 — Cálculo</div>
+            <h2>Volumetrías y replanteos</h2>
+            <p>
+              Cálculo de volúmenes de corte y relleno para construcción.
+              Replanteo de certificados ejidales y proyectos en tierras de
+              propiedad social.
+            </p>
+            <div class="svc-tags">
+              <span class="tag">Corte y relleno</span
+              ><span class="tag">Ejidos</span><span class="tag">Replanteo</span
+              ><span class="tag">Volumetrías</span>
+            </div>
+          </div>
+        </div>
+        <!-- 07 -->
+        <div class="svc-row">
+          <div
+            class="svc-img"
+            style="background-image: url(GEOSIERRA/revision_1.jpg)"
+          ></div>
+          <div class="svc-content">
+            <div class="svc-num">07 — Agrimensura</div>
+            <h2>Lotificación y subdivisiones</h2>
+            <p>
+              Lotificación, subdivisiones, apeo y deslinde, rectificación de
+              medidas, fusiones de predios, instalación de mojoneras, puntos de
+              control y bancos de nivel, instalación de red CORS.
+            </p>
+            <div class="svc-tags">
+              <span class="tag">Lotificación</span>
+              <span class="tag">Deslinde</span>
+              <span class="tag">Mojoneras</span>
+              <span class="tag">Red CORS</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 08 -->
+        <div class="svc-row reverse">
+          <div
+            class="svc-img"
+            style="background-image: url(GEOSIERRA/nubedensa.jpg)"
+          ></div>
+          <div class="svc-content">
+            <div class="svc-num">08 — Nube de puntos</div>
+            <h2>Nube densa de puntos</h2>
+            <p>
+              Generación de nube densa de puntos a partir de vuelo
+              fotogramétrico para análisis geoespacial detallado, modelado 3D y
+              extracción de información topográfica de alta resolución.
+            </p>
+            <div class="svc-tags">
+              <span class="tag">Fotogrametría</span>
+              <span class="tag">Modelado 3D</span>
+              <span class="tag">Alta resolución</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 09 -->
+        <div class="svc-row">
+          <div
+            class="svc-img"
+            style="background-image: url(GEOSIERRA/ortomosaico.jpg)"
+          ></div>
+          <div class="svc-content">
+            <div class="svc-num">09 — Fotogrametría</div>
+            <h2>Ortofoto corregida</h2>
+            <p>
+              Ortofoto corregida con precisión centimétrica: ±0.05–0.10 cm
+              horizontal (planimetría) y ±0.10–0.20 cm vertical (altimetría).
+              Ideal para fraccionamientos habitacionales, desarrollos
+              industriales y permisos de construcción municipal, estatal y
+              federal.
+            </p>
+            <div class="svc-tags">
+              <span class="tag">Precisión ±0.05 cm</span>
+              <span class="tag">Planimetría</span>
+              <span class="tag">Altimetría</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 10 -->
+        <div class="svc-row reverse">
+          <div
+            class="svc-img"
+            style="background-image: url(GEOSIERRA/DEM.jpg)"
+          ></div>
+          <div class="svc-content">
+            <div class="svc-num">10 — MDT / MDS</div>
+            <h2>Modelos digitales de elevación</h2>
+            <p>
+              Modelos digitales de elevación tipo terreno (MDT) y superficie
+              (MDS), curvas de nivel 2D y 3D, TIN, cálculo de volúmenes
+              (volumetría). Misma precisión centimétrica de vuelo
+              fotogramétrico.
+            </p>
+            <div class="svc-tags">
+              <span class="tag">MDT</span>
+              <span class="tag">MDS</span>
+              <span class="tag">TIN</span>
+              <span class="tag">Volumetría</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 11 -->
+        <div class="svc-row">
+          <div
+            class="svc-img"
+            style="
+              background-image: url(GEOSIERRA/delimitacion-zona-federal.jpg);
+            "
+          ></div>
+          <div class="svc-content">
+            <div class="svc-num">11 — Zona Federal</div>
+            <h2>Delimitación de zona federal</h2>
+            <p>
+              Topografía, hidrología (estudio de riesgos de inundación,
+              identificación de corrientes de agua y rasgos fisiográficos) y
+              modelación hidráulica conforme a normativa vigente.
+            </p>
+            <div class="svc-tags">
+              <span class="tag">Topografía</span>
+              <span class="tag">Hidrología</span>
+              <span class="tag">Modelación hidráulica</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 12 -->
+        <div class="svc-row reverse">
+          <div
+            class="svc-img"
+            style="background-image: url(GEOSIERRA/estudio-hidrologico.jpg)"
+          ></div>
+          <div class="svc-content">
+            <div class="svc-num">12 — Hidrología</div>
+            <h2>Estudios hidrológicos y cálculo de inundación</h2>
+            <p>
+              Estudio de riesgos de inundación, identificación de corrientes de
+              agua y rasgos fisiográficos, modelación hidráulica y análisis de
+              cuencas hidrográficas.
+            </p>
+            <div class="svc-tags">
+              <span class="tag">Riesgo de inundación</span>
+              <span class="tag">Corrientes de agua</span>
+              <span class="tag">Cuencas</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 13 -->
+        <div class="svc-row">
+          <div
+            class="svc-img"
+            style="background-image: url(GEOSIERRA/planos.png)"
+          ></div>
+          <div class="svc-content">
+            <div class="svc-num">13 — Avalúos</div>
+            <h2>Avalúos comerciales, residenciales e industriales</h2>
+            <p>
+              Avalúos comerciales, residenciales, industriales y rústicos.
+              Levantamientos arquitectónicos y Alta Survey.
+            </p>
+            <div class="svc-tags">
+              <span class="tag">Comercial</span>
+              <span class="tag">Residencial</span>
+              <span class="tag">Industrial</span>
+              <span class="tag">Rústico</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 14 -->
+        <div class="svc-row reverse">
+          <div
+            class="svc-img"
+            style="background-image: url(GEOSIERRA/obra.jpg)"
+          ></div>
+          <div class="svc-content">
+            <div class="svc-num">14 — Planos y permisos</div>
+            <h2>Elaboración de planos y permisos</h2>
+            <p>
+              Elaboración de planos para permisos de construcción y permisos de
+              desmonte. Trámites municipales, estatales y federales.
+            </p>
+            <div class="svc-tags">
+              <span class="tag">Permisos de construcción</span>
+              <span class="tag">Desmonte</span>
+              <span class="tag">Planos</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="cta-band">
+      <h2>¿Cuál servicio necesitas?</h2>
+      <p>Cuéntanos tu proyecto y te enviamos una cotización sin compromiso.</p>
+      <div class="cta-btns">
+        <a
+          href="https://wa.me/528115858160?text=Hola%2C%20me%20gustar%C3%ADa%20cotizar%20un%20servicio%20de%20topograf%C3%ADa"
+          class="btn btn-whatsapp"
+          target="_blank"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+            />
+          </svg>
+          Cotizar por WhatsApp
+        </a>
+        <a href="contacto.html" class="btn btn-outline"
+          >Formulario de cotización</a
+        >
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-left">
+        © 2025 Geosierra · ing.joelguadarrama@geosierratopografiageodesia.com
+      </div>
+      <div class="footer-right">
+        <a href="index.html">Inicio</a><a href="nosotros.html">Nosotros</a
+        ><a href="contacto.html">Contacto</a>
+      </div>
+    </footer>
+  </body>
+</html>

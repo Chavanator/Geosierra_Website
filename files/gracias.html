@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gracias — Geosierra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green-dark: #0a1f10;
+      --green-mid: #0f2d1a;
+      --green-brand: #3bb50e;
+      --green-light: #4ade80;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Syne", sans-serif;
+      background: var(--green-dark);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+    .icon {
+      width: 72px;
+      height: 72px;
+      background: rgba(74, 222, 128, 0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    h1 { font-size: 2rem; margin-bottom: 0.75rem; }
+    p { color: rgba(255,255,255,0.6); font-size: 1.05rem; margin-bottom: 2rem; max-width: 480px; line-height: 1.7; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 26px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      font-family: "Syne", sans-serif;
+      background: var(--green-brand);
+      color: #fff;
+      transition: background 0.2s;
+    }
+    .btn:hover { background: #2ea00a; }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.85);
+    }
+    .btn-outline:hover { border-color: var(--green-light); color: var(--green-light); }
+    .btn-row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    @media (max-width: 480px) {
+      h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="icon">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
+  </div>
+  <h1>¡Gracias por tu cotización!</h1>
+  <p>
+    Hemos recibido tu solicitud. Te contactaremos por WhatsApp o correo electrónico
+    en menos de 24 horas para darte una cotización personalizada.
+  </p>
+  <div class="btn-row">
+    <a href="index.html" class="btn">Volver al inicio</a>
+    <a href="https://wa.me/528115858160" target="_blank" class="btn btn-outline">Escribir por WhatsApp</a>
+  </div>
+</body>
+</html>
