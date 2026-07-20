@@ -3,8 +3,7 @@
 Sitio web profesional para **Geosierra**, empresa mexicana especializada en topografía, geodesia, vuelos fotogramétricos, estudios hidrológicos y más.
 
 ## Sitio en vivo
-
-[https://geosierra.netlify.app](https://geosierra.netlify.app)
+https://geosierratopografiageodesia.com/
 
 ## Páginas
 
